@@ -1,0 +1,19 @@
+﻿factor score,task,measure,placebo mean,rbs mean,rb mean,placebo error,rbs error,rb error
+attentional intensity index,simple reaction time,Speed (ms),14.1,22.8,18.4,8.3,8.3,8.3
+attentional intensity index,digit vigilance,Speed of target detection (ms),13.7,5.8,4.7,4.6,4.6,4.6
+attentional intensity index,choice reaction time,Speed of correct responses (ms),0.6,-4.6,1.1,6,6,6
+sustained attention index,digit vigilance,Targets detected (%),1.14,-0.12,1.7,1.3,1.3,1.3
+sustained attention index,digit vigilance,False alarms (#),-0.18,-0.1,-0.22,0.3,0.3,0.3
+sustained attention index,choice reaction time,Accuracy (%),-0.03,0.56,0.6,0.5,0.5,0.5
+memory capacity index,numeric working memory,Overall accuracy (%),-2.59,2.46,-0.24,1.8,1.8,1.9
+memory capacity index,spatial working memory,Overall accuracy (%),-3.61,-0.9,-0.62,2.6,2.6,2.7
+memory capacity index,immediate word recall,Words correctly recalled accuracy (%),-1.85,-3.06,-0.09,3,3,3
+memory capacity index,immediate word recall,Errors (#),-0.06,-0.11,0.19,0.1,0.1,0.1
+memory capacity index,delayed word recall,Words correctly recalled accuracy (%),-12.5,-9.1,-7.6,3.2,3.2,3.3
+memory capacity index,delayed word recall,Errors (#),0.42,0.28,0.38,0.2,0.2,0.2
+memory capacity index,word recognition,Overall accuracy (%),-12.5,-9.06,-7.58,3.2,3.2,3.3
+memory capacity index,pattern recognition,Overall accuracy (%),-0.38,-15.5,5.95,3.1,3,3.1
+speed of retrival index,numeric working memory,Speed of correct responses (ms),-13.9,-16.5,-37.3,12.5,12.6,12.7
+speed of retrival index,spatial working memory,Speed of correct responses (ms),-30.6,-42.7,-33.2,13.7,13.7,13.9
+speed of retrival index,word recognition,Speed of correct responses (ms),22.9,7.7,-14,14.4,14.2,14.3
+speed of retrival index,pattern recognition,Speed of correct responses (ms),8.2,2,-48.6,12.8,12.6,12.7
