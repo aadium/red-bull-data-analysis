@@ -1,6 +1,5 @@
 import pandas as pd
 import json
-
 from scipy.stats import ttest_ind_from_stats
 
 
@@ -48,12 +47,12 @@ def calculate_95_confidence_intervals(data):
         ci_dict = {
             'task': row['task'],
             'measure': row['measure'],
-            'placebo CI': (round(row['placebo mean'] - z_score * row['placebo error'], 3),
-                           round(row['placebo mean'] + z_score * row['placebo error'], 3)),
-            'rbs CI': (round(row['rbs mean'] - z_score * row['rbs error'], 3),
-                       round(row['rbs mean'] + z_score * row['rbs error'], 3)),
-            'rb CI': (round(row['rb mean'] - z_score * row['rb error'], 3),
-                      round(row['rb mean'] + z_score * row['rb error'], 3))
+            'placebo CI': (round(row['placebo mean'] - z_score * row['placebo error'], 10),
+                           round(row['placebo mean'] + z_score * row['placebo error'], 10)),
+            'rbs CI': (round(row['rbs mean'] - z_score * row['rbs error'], 10),
+                       round(row['rbs mean'] + z_score * row['rbs error'], 10)),
+            'rb CI': (round(row['rb mean'] - z_score * row['rb error'], 10),
+                      round(row['rb mean'] + z_score * row['rb error'], 10))
         }
 
         factor = row['factor score']
@@ -64,38 +63,39 @@ def calculate_95_confidence_intervals(data):
     return grouped_conf_intervals
 
 
-def calculate_p_values(data, sample_size=30):
-    # Create a dictionary to store p-values grouped by factor
-    grouped_p_values = {}
+def calculate_p_values_grouped(data, sample_size=30):
+    p_values_grouped = {}
 
     for _, row in data.iterrows():
-        # Perform independent two-sample t-test between placebo and RBS
-        t_statistic, p_value_rbs = ttest_ind_from_stats(
-            mean1=row['placebo mean'], std1=row['placebo error'], nobs1=sample_size,
-            mean2=row['rbs mean'], std2=row['rbs error'], nobs2=sample_size,
-            equal_var=False
-        )
+        factor_score = row['factor score']
+        task = row['task']
+        measure = row['measure']
 
-        # Perform independent two-sample t-test between placebo and RB
-        t_statistic, p_value_rb = ttest_ind_from_stats(
-            mean1=row['placebo mean'], std1=row['placebo error'], nobs1=sample_size,
-            mean2=row['rb mean'], std2=row['rb error'], nobs2=sample_size,
-            equal_var=False
-        )
+        # Means and standard errors
+        means = [row['placebo mean'], row['rbs mean'], row['rb mean']]
+        errors = [row['placebo error'], row['rbs error'], row['rb error']]
 
-        p_value_dict = {
-            'task': row['task'],
-            'measure': row['measure'],
-            'p-value (placebo vs RBS)': p_value_rbs,
-            'p-value (placebo vs RB)': p_value_rb
+        # Calculate t-tests
+        t_stat1, p_val1 = ttest_ind_from_stats(mean1=means[0], std1=errors[0], nobs1=sample_size,
+                                               mean2=means[1], std2=errors[1], nobs2=sample_size)
+        t_stat2, p_val2 = ttest_ind_from_stats(mean1=means[0], std1=errors[0], nobs1=sample_size,
+                                               mean2=means[2], std2=errors[2], nobs2=sample_size)
+        t_stat3, p_val3 = ttest_ind_from_stats(mean1=means[1], std1=errors[1], nobs1=sample_size,
+                                               mean2=means[2], std2=errors[2], nobs2=sample_size)
+
+        p_values_dict = {
+            'task': task,
+            'measure': measure,
+            'placebo vs rbs': round(p_val1, 10),
+            'placebo vs rb': round(p_val2, 10),
+            'rbs vs rb': round(p_val3, 10)
         }
 
-        factor = row['factor score']
-        if factor not in grouped_p_values:
-            grouped_p_values[factor] = []
-        grouped_p_values[factor].append(p_value_dict)
+        if factor_score not in p_values_grouped:
+            p_values_grouped[factor_score] = []
+        p_values_grouped[factor_score].append(p_values_dict)
 
-    return grouped_p_values
+    return p_values_grouped
 
 
 raw_data = get_data()
@@ -111,7 +111,7 @@ speed_of_retrival_index_tasks = get_task_names(speed_of_retrival_index_data)
 
 # Calculate confidence intervals
 confidence_intervals = calculate_95_confidence_intervals(raw_data)
-p_values = calculate_p_values(raw_data, sample_size=22)
+p_values = calculate_p_values_grouped(raw_data, sample_size=22)
 
 # Save p-values to a JSON file
 with open('p_values.json', 'w') as f:
