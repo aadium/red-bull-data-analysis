@@ -7,35 +7,6 @@ def get_data():
     return pd.read_csv('./data.csv')  # Update path if needed
 
 
-def categorize_factor_score(cat, data):
-    return data[data['factor score'] == cat]
-
-
-def get_task_names(data):
-    return list(data['task'])
-
-
-def get_task_scores(data, item_task, score_type):
-    # Filter data by task
-    filtered_data = data[data['task'] == item_task]
-
-    # Determine columns to select based on score_type
-    if score_type == 'mean':
-        columns_to_select = ['measure', 'placebo mean', 'rbs mean', 'rb mean']
-    elif score_type == 'error':
-        columns_to_select = ['measure', 'placebo error', 'rbs error', 'rb error']
-    else:
-        return "Invalid score_type"
-
-    # Construct a list of dictionaries for each row in the filtered data
-    scores_list = []
-    for _, row in filtered_data.iterrows():
-        scores_dict = {col: row[col] for col in columns_to_select}
-        scores_list.append(scores_dict)
-
-    return scores_list
-
-
 def calculate_95_confidence_intervals(data):
     # Define z-score for 95% confidence interval
     z_score = 1.96
@@ -63,7 +34,7 @@ def calculate_95_confidence_intervals(data):
     return grouped_conf_intervals
 
 
-def calculate_p_values_grouped(data, sample_size=30):
+def calculate_p_values(data, sample_size=30):
     p_values_grouped = {}
 
     for _, row in data.iterrows():
@@ -99,19 +70,10 @@ def calculate_p_values_grouped(data, sample_size=30):
 
 
 raw_data = get_data()
-attentional_intensity_index_data = categorize_factor_score('attentional intensity index', raw_data)
-sustained_attention_index_data = categorize_factor_score('sustained attention index', raw_data)
-memory_capacity_index_data = categorize_factor_score('memory capacity index', raw_data)
-speed_of_retrival_index_data = categorize_factor_score('speed of retrival index', raw_data)
-
-attentional_intensity_index_tasks = get_task_names(attentional_intensity_index_data)
-sustained_attention_index_tasks = get_task_names(sustained_attention_index_data)
-memory_capacity_index_tasks = get_task_names(memory_capacity_index_data)
-speed_of_retrival_index_tasks = get_task_names(speed_of_retrival_index_data)
 
 # Calculate confidence intervals
 confidence_intervals = calculate_95_confidence_intervals(raw_data)
-p_values = calculate_p_values_grouped(raw_data, sample_size=22)
+p_values = calculate_p_values(raw_data, sample_size=22)
 
 # Save p-values to a JSON file
 with open('p_values.json', 'w') as f:
