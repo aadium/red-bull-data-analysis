@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+from scipy.stats import t, ttest_ind_from_stats
 
 
 def get_data():
@@ -33,6 +34,51 @@ def get_task_scores(data, task, score_type):
         scores_list.append(scores_dict)
 
     return scores_list
+
+
+def calculate_confidence_intervals(data):
+    data = data.copy()
+
+    # Calculate the differences in means
+    data['diff_rbs_placebo'] = data['rbs mean'] - data['placebo mean']
+    data['diff_rb_placebo'] = data['rb mean'] - data['placebo mean']
+    data['diff_rbs_rb'] = data['rbs mean'] - data['rb mean']
+
+    # Calculate the standard errors for the differences
+    data['se_diff_rbs_placebo'] = (data['rbs error']**2 + data['placebo error']**2)**0.5
+    data['se_diff_rb_placebo'] = (data['rb error']**2 + data['placebo error']**2)**0.5
+    data['se_diff_rbs_rb'] = (data['rbs error']**2 + data['rb error']**2)**0.5
+
+    # Define the confidence level
+    confidence = 0.95
+    alpha = 1 - confidence
+
+    # Calculate the t-critical value
+    degrees_of_freedom = len(data) - 1
+    t_critical = t.ppf(1 - alpha/2, degrees_of_freedom)
+
+    # Calculate the confidence intervals
+    data['ci_diff_rbs_placebo'] = t_critical * data['se_diff_rbs_placebo']
+    data['ci_diff_rb_placebo'] = t_critical * data['se_diff_rb_placebo']
+    data['ci_diff_rbs_rb'] = t_critical * data['se_diff_rbs_rb']
+
+    # Perform t-tests and add p-values to the DataFrame
+    data['p_value_rbs_placebo'] = data.apply(lambda row: ttest_ind_from_stats(
+        mean1=row['rbs mean'], std1=row['rbs error'], nobs1=30,
+        mean2=row['placebo mean'], std2=row['placebo error'], nobs2=30)[1], axis=1)
+
+    data['p_value_rb_placebo'] = data.apply(lambda row: ttest_ind_from_stats(
+        mean1=row['rb mean'], std1=row['rb error'], nobs1=30,
+        mean2=row['placebo mean'], std2=row['placebo error'], nobs2=30)[1], axis=1)
+
+    data['p_value_rbs_rb'] = data.apply(lambda row: ttest_ind_from_stats(
+        mean1=row['rbs mean'], std1=row['rbs error'], nobs1=30,
+        mean2=row['rb mean'], std2=row['rb error'], nobs2=30)[1], axis=1)
+
+    p_values = data[['p_value_rbs_placebo', 'p_value_rb_placebo', 'p_value_rbs_rb']]
+    confidence_intervals = data[['ci_diff_rbs_placebo', 'ci_diff_rb_placebo', 'ci_diff_rbs_rb']]
+
+    return p_values, confidence_intervals
 
 
 raw_data = get_data()
@@ -79,9 +125,10 @@ for task in speed_of_retrival_index_tasks:
         'error': get_task_scores(speed_of_retrival_index_data, task, 'error')
     }
 
-# Convert the dictionary to a JSON string
-json_data = json.dumps(data_dict, indent=4)
+# Print the dictionary
+# print(json.dumps(data_dict, indent=4))
 
-# Write the JSON data to a file
-with open('task_scores.json', 'w') as file:
-    file.write(json_data)
+# Calculate confidence intervals
+p_values, confidence_intervals = calculate_confidence_intervals(attentional_intensity_index_data)
+print(p_values)
+print(confidence_intervals)
