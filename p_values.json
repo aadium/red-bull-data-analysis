@@ -1,0 +1,118 @@
+{
+    "attentional intensity index": [
+        {
+            "task": "simple reaction time",
+            "measure": "Speed (ms)",
+            "p-value (placebo vs RBS)": 0.0011944884574369382,
+            "p-value (placebo vs RB)": 0.09311561951144633
+        },
+        {
+            "task": "digit vigilance",
+            "measure": "Speed of target detection (ms)",
+            "p-value (placebo vs RBS)": 1.0862583989952294e-06,
+            "p-value (placebo vs RB)": 7.857472011605208e-08
+        },
+        {
+            "task": "choice reaction time",
+            "measure": "Speed of correct responses (ms)",
+            "p-value (placebo vs RBS)": 0.006327366785415666,
+            "p-value (placebo vs RB)": 0.7836076329759669
+        }
+    ],
+    "sustained attention index": [
+        {
+            "task": "digit vigilance",
+            "measure": "Targets detected (%)",
+            "p-value (placebo vs RBS)": 0.0025127264752034177,
+            "p-value (placebo vs RB)": 0.16048579876233837
+        },
+        {
+            "task": "digit vigilance",
+            "measure": "False alarms (#)",
+            "p-value (placebo vs RBS)": 0.3814975960774566,
+            "p-value (placebo vs RB)": 0.6606013404197825
+        },
+        {
+            "task": "choice reaction time",
+            "measure": "Accuracy (%)",
+            "p-value (placebo vs RBS)": 0.0003271770467405972,
+            "p-value (placebo vs RB)": 0.00014504938504567255
+        }
+    ],
+    "memory capacity index": [
+        {
+            "task": "numeric working memory",
+            "measure": "Overall accuracy (%)",
+            "p-value (placebo vs RBS)": 9.211901305781332e-12,
+            "p-value (placebo vs RB)": 0.00013162363434570336
+        },
+        {
+            "task": "spatial working memory",
+            "measure": "Overall accuracy (%)",
+            "p-value (placebo vs RBS)": 0.0012636923221658416,
+            "p-value (placebo vs RB)": 0.0005494860803952191
+        },
+        {
+            "task": "immediate word recall",
+            "measure": "Words correctly recalled accuracy (%)",
+            "p-value (placebo vs RBS)": 0.18819132765009566,
+            "p-value (placebo vs RB)": 0.05839673458255921
+        },
+        {
+            "task": "immediate word recall",
+            "measure": "Errors (#)",
+            "p-value (placebo vs RBS)": 0.10470569245523906,
+            "p-value (placebo vs RB)": 2.200087186356543e-10
+        },
+        {
+            "task": "delayed word recall",
+            "measure": "Words correctly recalled accuracy (%)",
+            "p-value (placebo vs RBS)": 0.0010410473551519248,
+            "p-value (placebo vs RB)": 1.067225817314655e-05
+        },
+        {
+            "task": "delayed word recall",
+            "measure": "Errors (#)",
+            "p-value (placebo vs RBS)": 0.025175877145578143,
+            "p-value (placebo vs RB)": 0.5107470580632845
+        },
+        {
+            "task": "word recognition",
+            "measure": "Overall accuracy (%)",
+            "p-value (placebo vs RBS)": 0.0009226114951313085,
+            "p-value (placebo vs RB)": 9.988056201345745e-06
+        },
+        {
+            "task": "pattern recognition",
+            "measure": "Overall accuracy (%)",
+            "p-value (placebo vs RBS)": 6.79783682657103e-20,
+            "p-value (placebo vs RB)": 3.079082799724261e-08
+        }
+    ],
+    "speed of retrival index": [
+        {
+            "task": "numeric working memory",
+            "measure": "Speed of correct responses (ms)",
+            "p-value (placebo vs RBS)": 0.4957941077996102,
+            "p-value (placebo vs RB)": 2.3455735812661443e-07
+        },
+        {
+            "task": "spatial working memory",
+            "measure": "Speed of correct responses (ms)",
+            "p-value (placebo vs RBS)": 0.0054707440440441065,
+            "p-value (placebo vs RB)": 0.5354471546023926
+        },
+        {
+            "task": "word recognition",
+            "measure": "Speed of correct responses (ms)",
+            "p-value (placebo vs RBS)": 0.001037084565948933,
+            "p-value (placebo vs RB)": 1.0376772475777592e-10
+        },
+        {
+            "task": "pattern recognition",
+            "measure": "Speed of correct responses (ms)",
+            "p-value (placebo vs RBS)": 0.1129158102741096,
+            "p-value (placebo vs RB)": 3.074333214961185e-18
+        }
+    ]
+}

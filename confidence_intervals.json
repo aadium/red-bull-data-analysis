@@ -1,0 +1,298 @@
+{
+    "attentional intensity index": [
+        {
+            "task": "simple reaction time",
+            "measure": "Speed (ms)",
+            "placebo CI": [
+                -2.168,
+                30.368
+            ],
+            "rbs CI": [
+                6.532,
+                39.068
+            ],
+            "rb CI": [
+                2.132,
+                34.668
+            ]
+        },
+        {
+            "task": "digit vigilance",
+            "measure": "Speed of target detection (ms)",
+            "placebo CI": [
+                4.684,
+                22.716
+            ],
+            "rbs CI": [
+                -3.216,
+                14.816
+            ],
+            "rb CI": [
+                -4.316,
+                13.716
+            ]
+        },
+        {
+            "task": "choice reaction time",
+            "measure": "Speed of correct responses (ms)",
+            "placebo CI": [
+                -11.16,
+                12.36
+            ],
+            "rbs CI": [
+                -16.36,
+                7.16
+            ],
+            "rb CI": [
+                -10.66,
+                12.86
+            ]
+        }
+    ],
+    "sustained attention index": [
+        {
+            "task": "digit vigilance",
+            "measure": "Targets detected (%)",
+            "placebo CI": [
+                -1.408,
+                3.688
+            ],
+            "rbs CI": [
+                -2.668,
+                2.428
+            ],
+            "rb CI": [
+                -0.848,
+                4.248
+            ]
+        },
+        {
+            "task": "digit vigilance",
+            "measure": "False alarms (#)",
+            "placebo CI": [
+                -0.768,
+                0.408
+            ],
+            "rbs CI": [
+                -0.688,
+                0.488
+            ],
+            "rb CI": [
+                -0.808,
+                0.368
+            ]
+        },
+        {
+            "task": "choice reaction time",
+            "measure": "Accuracy (%)",
+            "placebo CI": [
+                -1.01,
+                0.95
+            ],
+            "rbs CI": [
+                -0.42,
+                1.54
+            ],
+            "rb CI": [
+                -0.38,
+                1.58
+            ]
+        }
+    ],
+    "memory capacity index": [
+        {
+            "task": "numeric working memory",
+            "measure": "Overall accuracy (%)",
+            "placebo CI": [
+                -6.118,
+                0.938
+            ],
+            "rbs CI": [
+                -1.068,
+                5.988
+            ],
+            "rb CI": [
+                -3.964,
+                3.484
+            ]
+        },
+        {
+            "task": "spatial working memory",
+            "measure": "Overall accuracy (%)",
+            "placebo CI": [
+                -8.706,
+                1.486
+            ],
+            "rbs CI": [
+                -5.996,
+                4.196
+            ],
+            "rb CI": [
+                -5.912,
+                4.672
+            ]
+        },
+        {
+            "task": "immediate word recall",
+            "measure": "Words correctly recalled accuracy (%)",
+            "placebo CI": [
+                -7.73,
+                4.03
+            ],
+            "rbs CI": [
+                -8.94,
+                2.82
+            ],
+            "rb CI": [
+                -5.97,
+                5.79
+            ]
+        },
+        {
+            "task": "immediate word recall",
+            "measure": "Errors (#)",
+            "placebo CI": [
+                -0.256,
+                0.136
+            ],
+            "rbs CI": [
+                -0.306,
+                0.086
+            ],
+            "rb CI": [
+                -0.006,
+                0.386
+            ]
+        },
+        {
+            "task": "delayed word recall",
+            "measure": "Words correctly recalled accuracy (%)",
+            "placebo CI": [
+                -18.772,
+                -6.228
+            ],
+            "rbs CI": [
+                -15.372,
+                -2.828
+            ],
+            "rb CI": [
+                -14.068,
+                -1.132
+            ]
+        },
+        {
+            "task": "delayed word recall",
+            "measure": "Errors (#)",
+            "placebo CI": [
+                0.028,
+                0.812
+            ],
+            "rbs CI": [
+                -0.112,
+                0.672
+            ],
+            "rb CI": [
+                -0.012,
+                0.772
+            ]
+        },
+        {
+            "task": "word recognition",
+            "measure": "Overall accuracy (%)",
+            "placebo CI": [
+                -18.772,
+                -6.228
+            ],
+            "rbs CI": [
+                -15.332,
+                -2.788
+            ],
+            "rb CI": [
+                -14.048,
+                -1.112
+            ]
+        },
+        {
+            "task": "pattern recognition",
+            "measure": "Overall accuracy (%)",
+            "placebo CI": [
+                -6.456,
+                5.696
+            ],
+            "rbs CI": [
+                -21.38,
+                -9.62
+            ],
+            "rb CI": [
+                -0.126,
+                12.026
+            ]
+        }
+    ],
+    "speed of retrival index": [
+        {
+            "task": "numeric working memory",
+            "measure": "Speed of correct responses (ms)",
+            "placebo CI": [
+                -38.4,
+                10.6
+            ],
+            "rbs CI": [
+                -41.196,
+                8.196
+            ],
+            "rb CI": [
+                -62.192,
+                -12.408
+            ]
+        },
+        {
+            "task": "spatial working memory",
+            "measure": "Speed of correct responses (ms)",
+            "placebo CI": [
+                -57.452,
+                -3.748
+            ],
+            "rbs CI": [
+                -69.552,
+                -15.848
+            ],
+            "rb CI": [
+                -60.444,
+                -5.956
+            ]
+        },
+        {
+            "task": "word recognition",
+            "measure": "Speed of correct responses (ms)",
+            "placebo CI": [
+                -5.324,
+                51.124
+            ],
+            "rbs CI": [
+                -20.132,
+                35.532
+            ],
+            "rb CI": [
+                -42.028,
+                14.028
+            ]
+        },
+        {
+            "task": "pattern recognition",
+            "measure": "Speed of correct responses (ms)",
+            "placebo CI": [
+                -16.888,
+                33.288
+            ],
+            "rbs CI": [
+                -22.696,
+                26.696
+            ],
+            "rb CI": [
+                -73.492,
+                -23.708
+            ]
+        }
+    ]
+}

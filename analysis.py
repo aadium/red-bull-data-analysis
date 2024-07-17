@@ -1,10 +1,11 @@
 import pandas as pd
 import json
-from scipy.stats import t, ttest_ind_from_stats
+
+from scipy.stats import ttest_ind_from_stats
 
 
 def get_data():
-    return pd.read_csv('data.csv')
+    return pd.read_csv('./data.csv')  # Update path if needed
 
 
 def categorize_factor_score(cat, data):
@@ -15,9 +16,9 @@ def get_task_names(data):
     return list(data['task'])
 
 
-def get_task_scores(data, task, score_type):
+def get_task_scores(data, item_task, score_type):
     # Filter data by task
-    filtered_data = data[data['task'] == task]
+    filtered_data = data[data['task'] == item_task]
 
     # Determine columns to select based on score_type
     if score_type == 'mean':
@@ -36,49 +37,65 @@ def get_task_scores(data, task, score_type):
     return scores_list
 
 
-def calculate_confidence_intervals(data):
-    data = data.copy()
+def calculate_95_confidence_intervals(data):
+    # Define z-score for 95% confidence interval
+    z_score = 1.96
 
-    # Calculate the differences in means
-    data['diff_rbs_placebo'] = data['rbs mean'] - data['placebo mean']
-    data['diff_rb_placebo'] = data['rb mean'] - data['placebo mean']
-    data['diff_rbs_rb'] = data['rbs mean'] - data['rb mean']
+    # Create a dictionary to store confidence intervals grouped by factor
+    grouped_conf_intervals = {}
 
-    # Calculate the standard errors for the differences
-    data['se_diff_rbs_placebo'] = (data['rbs error']**2 + data['placebo error']**2)**0.5
-    data['se_diff_rb_placebo'] = (data['rb error']**2 + data['placebo error']**2)**0.5
-    data['se_diff_rbs_rb'] = (data['rbs error']**2 + data['rb error']**2)**0.5
+    for _, row in data.iterrows():
+        ci_dict = {
+            'task': row['task'],
+            'measure': row['measure'],
+            'placebo CI': (round(row['placebo mean'] - z_score * row['placebo error'], 3),
+                           round(row['placebo mean'] + z_score * row['placebo error'], 3)),
+            'rbs CI': (round(row['rbs mean'] - z_score * row['rbs error'], 3),
+                       round(row['rbs mean'] + z_score * row['rbs error'], 3)),
+            'rb CI': (round(row['rb mean'] - z_score * row['rb error'], 3),
+                      round(row['rb mean'] + z_score * row['rb error'], 3))
+        }
 
-    # Define the confidence level
-    confidence = 0.95
-    alpha = 1 - confidence
+        factor = row['factor score']
+        if factor not in grouped_conf_intervals:
+            grouped_conf_intervals[factor] = []
+        grouped_conf_intervals[factor].append(ci_dict)
 
-    # Calculate the t-critical value
-    degrees_of_freedom = len(data) - 1
-    t_critical = t.ppf(1 - alpha/2, degrees_of_freedom)
+    return grouped_conf_intervals
 
-    # Calculate the confidence intervals
-    data['ci_diff_rbs_placebo'] = t_critical * data['se_diff_rbs_placebo']
-    data['ci_diff_rb_placebo'] = t_critical * data['se_diff_rb_placebo']
-    data['ci_diff_rbs_rb'] = t_critical * data['se_diff_rbs_rb']
 
-    # Perform t-tests and add p-values to the DataFrame
-    data['p_value_rbs_placebo'] = data.apply(lambda row: ttest_ind_from_stats(
-        mean1=row['rbs mean'], std1=row['rbs error'], nobs1=30,
-        mean2=row['placebo mean'], std2=row['placebo error'], nobs2=30)[1], axis=1)
+def calculate_p_values(data, sample_size=30):
+    # Create a dictionary to store p-values grouped by factor
+    grouped_p_values = {}
 
-    data['p_value_rb_placebo'] = data.apply(lambda row: ttest_ind_from_stats(
-        mean1=row['rb mean'], std1=row['rb error'], nobs1=30,
-        mean2=row['placebo mean'], std2=row['placebo error'], nobs2=30)[1], axis=1)
+    for _, row in data.iterrows():
+        # Perform independent two-sample t-test between placebo and RBS
+        t_statistic, p_value_rbs = ttest_ind_from_stats(
+            mean1=row['placebo mean'], std1=row['placebo error'], nobs1=sample_size,
+            mean2=row['rbs mean'], std2=row['rbs error'], nobs2=sample_size,
+            equal_var=False
+        )
 
-    data['p_value_rbs_rb'] = data.apply(lambda row: ttest_ind_from_stats(
-        mean1=row['rbs mean'], std1=row['rbs error'], nobs1=30,
-        mean2=row['rb mean'], std2=row['rb error'], nobs2=30)[1], axis=1)
+        # Perform independent two-sample t-test between placebo and RB
+        t_statistic, p_value_rb = ttest_ind_from_stats(
+            mean1=row['placebo mean'], std1=row['placebo error'], nobs1=sample_size,
+            mean2=row['rb mean'], std2=row['rb error'], nobs2=sample_size,
+            equal_var=False
+        )
 
-    p_values = data[['p_value_rbs_placebo', 'p_value_rb_placebo', 'p_value_rbs_rb']]
-    confidence_intervals = data[['ci_diff_rbs_placebo', 'ci_diff_rb_placebo', 'ci_diff_rbs_rb']]
+        p_value_dict = {
+            'task': row['task'],
+            'measure': row['measure'],
+            'p-value (placebo vs RBS)': p_value_rbs,
+            'p-value (placebo vs RB)': p_value_rb
+        }
 
-    return p_values, confidence_intervals
+        factor = row['factor score']
+        if factor not in grouped_p_values:
+            grouped_p_values[factor] = []
+        grouped_p_values[factor].append(p_value_dict)
+
+    return grouped_p_values
 
 
 raw_data = get_data()
@@ -92,43 +109,14 @@ sustained_attention_index_tasks = get_task_names(sustained_attention_index_data)
 memory_capacity_index_tasks = get_task_names(memory_capacity_index_data)
 speed_of_retrival_index_tasks = get_task_names(speed_of_retrival_index_data)
 
-# Initialize a dictionary to hold all the data
-data_dict = {
-    'Attentional Intensity Index Tasks': {},
-    'Sustained Attention Index Tasks': {},
-    'Memory Capacity Index Tasks': {},
-    'Speed of Retrieval Index Tasks': {}
-}
-
-# Populate the dictionary with data
-for task in attentional_intensity_index_tasks:
-    data_dict['Attentional Intensity Index Tasks'][task] = {
-        'mean': get_task_scores(attentional_intensity_index_data, task, 'mean'),
-        'error': get_task_scores(attentional_intensity_index_data, task, 'error')
-    }
-
-for task in sustained_attention_index_tasks:
-    data_dict['Sustained Attention Index Tasks'][task] = {
-        'mean': get_task_scores(sustained_attention_index_data, task, 'mean'),
-        'error': get_task_scores(sustained_attention_index_data, task, 'error')
-    }
-
-for task in memory_capacity_index_tasks:
-    data_dict['Memory Capacity Index Tasks'][task] = {
-        'mean': get_task_scores(memory_capacity_index_data, task, 'mean'),
-        'error': get_task_scores(memory_capacity_index_data, task, 'error')
-    }
-
-for task in speed_of_retrival_index_tasks:
-    data_dict['Speed of Retrieval Index Tasks'][task] = {
-        'mean': get_task_scores(speed_of_retrival_index_data, task, 'mean'),
-        'error': get_task_scores(speed_of_retrival_index_data, task, 'error')
-    }
-
-# Print the dictionary
-# print(json.dumps(data_dict, indent=4))
-
 # Calculate confidence intervals
-p_values, confidence_intervals = calculate_confidence_intervals(attentional_intensity_index_data)
-print(p_values)
-print(confidence_intervals)
+confidence_intervals = calculate_95_confidence_intervals(raw_data)
+p_values = calculate_p_values(raw_data, sample_size=22)
+
+# Save p-values to a JSON file
+with open('p_values.json', 'w') as f:
+    json.dump(p_values, f, indent=4)
+
+# Save confidence intervals to a JSON file
+with open('confidence_intervals.json', 'w') as f:
+    json.dump(confidence_intervals, f, indent=4)
