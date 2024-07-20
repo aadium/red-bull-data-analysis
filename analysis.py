@@ -1,6 +1,8 @@
 import pandas as pd
 import json
-from scipy.stats import ttest_ind_from_stats
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import t
 
 
 def get_data():
@@ -34,46 +36,78 @@ def calculate_95_confidence_intervals(data):
     return grouped_conf_intervals
 
 
-def calculate_p_values(data, sample_size=30):
-    p_values_grouped = {}
+def calculate_p_values(data, sample_size):
+    # Create a dictionary to store p-values grouped by factor
+    grouped_p_values = {}
 
     for _, row in data.iterrows():
-        factor_score = row['factor score']
-        task = row['task']
-        measure = row['measure']
+        # Calculate t-statistic and p-value for placebo
+        t_stat_placebo = row['placebo mean'] / (row['placebo error'] / (sample_size ** 0.5))
+        p_value_placebo = t.sf(abs(t_stat_placebo), df=sample_size - 1) * 2
 
-        # Means and standard errors
-        means = [row['placebo mean'], row['rbs mean'], row['rb mean']]
-        errors = [row['placebo error'], row['rbs error'], row['rb error']]
+        # Calculate t-statistic and p-value for rbs
+        t_stat_rbs = row['rbs mean'] / (row['rbs error'] / (sample_size ** 0.5))
+        p_value_rbs = t.sf(abs(t_stat_rbs), df=sample_size - 1) * 2
 
-        # Calculate t-tests
-        t_stat1, p_val1 = ttest_ind_from_stats(mean1=means[0], std1=errors[0], nobs1=sample_size,
-                                               mean2=means[1], std2=errors[1], nobs2=sample_size)
-        t_stat2, p_val2 = ttest_ind_from_stats(mean1=means[0], std1=errors[0], nobs1=sample_size,
-                                               mean2=means[2], std2=errors[2], nobs2=sample_size)
-        t_stat3, p_val3 = ttest_ind_from_stats(mean1=means[1], std1=errors[1], nobs1=sample_size,
-                                               mean2=means[2], std2=errors[2], nobs2=sample_size)
+        # Calculate t-statistic and p-value for rb
+        t_stat_rb = row['rb mean'] / (row['rb error'] / (sample_size ** 0.5))
+        p_value_rb = t.sf(abs(t_stat_rb), df=sample_size - 1) * 2
 
         p_values_dict = {
-            'task': task,
-            'measure': measure,
-            'placebo vs rbs': round(p_val1, 10),
-            'placebo vs rb': round(p_val2, 10),
-            'rbs vs rb': round(p_val3, 10)
+            'task': row['task'],
+            'measure': row['measure'],
+            't_stats': {
+                'placebo': t_stat_placebo,
+                'rbs': t_stat_rbs,
+                'rb': t_stat_rb
+            },
+            'p_values': {
+                'placebo': p_value_placebo,
+                'rbs': p_value_rbs,
+                'rb': p_value_rb
+            },
         }
 
-        if factor_score not in p_values_grouped:
-            p_values_grouped[factor_score] = []
-        p_values_grouped[factor_score].append(p_values_dict)
+        factor = row['factor score']
+        if factor not in grouped_p_values:
+            grouped_p_values[factor] = []
+        grouped_p_values[factor].append(p_values_dict)
 
-    return p_values_grouped
+    return grouped_p_values
+
+
+def draw_bar_chart_means(data):
+    # Flatten the means for plotting
+    means_flat = []
+    for _, row in data.iterrows():
+        for drink in ['placebo', 'rbs', 'rb']:
+            means_flat.append({
+                'factor': row['factor score'],
+                'drink': drink,
+                'mean': row[f'{drink} mean']
+            })
+
+    # Convert to DataFrame
+    means_df = pd.DataFrame(means_flat)
+
+    # Get unique factor scores
+    unique_factors = means_df['factor'].unique()
+
+    # Plot bar chart for each factor score
+    for factor in unique_factors:
+        factor_df = means_df[means_df['factor'] == factor]
+        plt.figure(figsize=(12, 6))
+        sns.barplot(x='drink', y='mean', data=factor_df, ci=None)
+        plt.title(f'Bar Chart of Means for Factor {factor}')
+        plt.savefig(f'means_chart_factor_{factor}.png')
+        plt.show()
 
 
 raw_data = get_data()
 
 # Calculate confidence intervals
 confidence_intervals = calculate_95_confidence_intervals(raw_data)
-p_values = calculate_p_values(raw_data, sample_size=22)
+p_values = calculate_p_values(raw_data, sample_size=24)
 
 # Save p-values to a JSON file
 with open('p_values.json', 'w') as f:
@@ -82,3 +116,6 @@ with open('p_values.json', 'w') as f:
 # Save confidence intervals to a JSON file
 with open('confidence_intervals.json', 'w') as f:
     json.dump(confidence_intervals, f, indent=4)
+
+# Draw bar chart with error bars for means and errors
+draw_bar_chart_means(raw_data)

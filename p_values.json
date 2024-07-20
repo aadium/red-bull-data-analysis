@@ -3,134 +3,260 @@
         {
             "task": "simple reaction time",
             "measure": "Speed (ms)",
-            "placebo vs rbs": 0.0011944885,
-            "placebo vs rb": 0.0931156195,
-            "rbs vs rb": 0.0859974103
+            "t_stats": {
+                "placebo": 8.322362740540434,
+                "rbs": 13.457437623001555,
+                "rb": 10.860388257159148
+            },
+            "p_values": {
+                "placebo": 2.1634168613825005e-08,
+                "rbs": 2.1714458980207148e-12,
+                "rb": 1.5754454425283604e-10
+            }
         },
         {
             "task": "digit vigilance",
             "measure": "Speed of target detection (ms)",
-            "placebo vs rbs": 1.0863e-06,
-            "placebo vs rb": 7.86e-08,
-            "rbs vs rb": 0.4321738288
+            "t_stats": {
+                "placebo": 14.590438902665017,
+                "rbs": 6.176974133974971,
+                "rb": 5.005479039600408
+            },
+            "p_values": {
+                "placebo": 4.0801805407983244e-13,
+                "rbs": 2.659200831809686e-06,
+                "rb": 4.6014124432755424e-05
+            }
         },
         {
             "task": "choice reaction time",
             "measure": "Speed of correct responses (ms)",
-            "placebo vs rbs": 0.0063273668,
-            "placebo vs rb": 0.783607633,
-            "rbs vs rb": 0.0029992293
+            "t_stats": {
+                "placebo": 0.48989794855663554,
+                "rbs": -3.755884272267539,
+                "rb": 0.8981462390204986
+            },
+            "p_values": {
+                "placebo": 0.6288465228794167,
+                "rbs": 0.0010293840994037339,
+                "rb": 0.3784139521065579
+            }
         }
     ],
     "sustained attention index": [
         {
             "task": "digit vigilance",
             "measure": "Targets detected (%)",
-            "placebo vs rbs": 0.0025127265,
-            "placebo vs rb": 0.1604857988,
-            "rbs vs rb": 3.36004e-05
+            "t_stats": {
+                "placebo": 4.296028164265881,
+                "rbs": -0.45221349097535585,
+                "rb": 6.406357788817542
+            },
+            "p_values": {
+                "placebo": 0.0002692283386826935,
+                "rbs": 0.6553513971197227,
+                "rb": 1.5462004288459555e-06
+            }
         },
         {
             "task": "digit vigilance",
             "measure": "False alarms (#)",
-            "placebo vs rbs": 0.3814975961,
-            "placebo vs rb": 0.6606013404,
-            "rbs vs rb": 0.1917929162
+            "t_stats": {
+                "placebo": -2.9393876913398134,
+                "rbs": -1.632993161855452,
+                "rb": -3.5925849560819945
+            },
+            "p_values": {
+                "placebo": 0.007364367914430075,
+                "rbs": 0.1160870161523246,
+                "rb": 0.0015377243744421336
+            }
         },
         {
             "task": "choice reaction time",
             "measure": "Accuracy (%)",
-            "placebo vs rbs": 0.000327177,
-            "placebo vs rb": 0.0001450494,
-            "rbs vs rb": 0.7920532694
+            "t_stats": {
+                "placebo": -0.2939387691339813,
+                "rbs": 5.486857023834319,
+                "rb": 5.878775382679627
+            },
+            "p_values": {
+                "placebo": 0.7714409598361159,
+                "rbs": 1.4057596620068897e-05,
+                "rb": 5.428546180539002e-06
+            }
         }
     ],
     "memory capacity index": [
         {
             "task": "numeric working memory",
             "measure": "Overall accuracy (%)",
-            "placebo vs rbs": 0.0,
-            "placebo vs rb": 0.000131123,
-            "rbs vs rb": 1.79414e-05
+            "t_stats": {
+                "placebo": -7.049087148676033,
+                "rbs": 6.695271963607352,
+                "rb": -0.6188184613346976
+            },
+            "p_values": {
+                "placebo": 3.5008348604410296e-07,
+                "rbs": 7.879978618941978e-07,
+                "rb": 0.5421169923258713
+            }
         },
         {
             "task": "spatial working memory",
             "measure": "Overall accuracy (%)",
-            "placebo vs rbs": 0.0012636923,
-            "placebo vs rb": 0.0005487733,
-            "rbs vs rb": 0.7278096138
+            "t_stats": {
+                "placebo": -6.802044593420978,
+                "rbs": -1.6958005911575846,
+                "rb": -1.1249508448337555
+            },
+            "p_values": {
+                "placebo": 6.158398998837796e-07,
+                "rbs": 0.10342017292267813,
+                "rb": 0.27221306181946126
+            }
         },
         {
             "task": "immediate word recall",
             "measure": "Words correctly recalled accuracy (%)",
-            "placebo vs rbs": 0.1881913277,
-            "placebo vs rb": 0.0583967346,
-            "rbs vs rb": 0.0020716669
+            "t_stats": {
+                "placebo": -3.021037349432586,
+                "rbs": -4.996959075277683,
+                "rb": -0.14696938456699066
+            },
+            "p_values": {
+                "placebo": 0.006082084927965326,
+                "rbs": 4.69962851999125e-05,
+                "rb": 0.8844368691635766
+            }
         },
         {
             "task": "immediate word recall",
             "measure": "Errors (#)",
-            "placebo vs rbs": 0.1047056925,
-            "placebo vs rb": 2e-10,
-            "rbs vs rb": 0.0
+            "t_stats": {
+                "placebo": -2.9393876913398134,
+                "rbs": -5.388877434122992,
+                "rb": 9.308061022576076
+            },
+            "p_values": {
+                "placebo": 0.007364367914430075,
+                "rbs": 1.7870670740456595e-05,
+                "rb": 2.905386241818073e-09
+            }
         },
         {
             "task": "delayed word recall",
             "measure": "Words correctly recalled accuracy (%)",
-            "placebo vs rbs": 0.0010410474,
-            "placebo vs rb": 1.06505e-05,
-            "rbs vs rb": 0.1333739551
+            "t_stats": {
+                "placebo": -19.136638615493577,
+                "rbs": -13.931472912079323,
+                "rb": -11.282498209183123
+            },
+            "p_values": {
+                "placebo": 1.2625286259212914e-15,
+                "rbs": 1.0647427163559621e-12,
+                "rb": 7.487741520492327e-11
+            }
         },
         {
             "task": "delayed word recall",
             "measure": "Errors (#)",
-            "placebo vs rbs": 0.0251758771,
-            "placebo vs rb": 0.5107470581,
-            "rbs vs rb": 0.1047056925
+            "t_stats": {
+                "placebo": 10.287856919689347,
+                "rbs": 6.858571279792899,
+                "rb": 9.308061022576076
+            },
+            "p_values": {
+                "placebo": 4.4631497827711755e-10,
+                "rbs": 5.408073670104017e-07,
+                "rb": 2.905386241818073e-09
+            }
         },
         {
             "task": "word recognition",
             "measure": "Overall accuracy (%)",
-            "placebo vs rbs": 0.0009226115,
-            "placebo vs rb": 9.9675e-06,
-            "rbs vs rb": 0.1384897208
+            "t_stats": {
+                "placebo": -19.136638615493577,
+                "rbs": -13.870235668509746,
+                "rb": -11.252807424422116
+            },
+            "p_values": {
+                "placebo": 1.2625286259212914e-15,
+                "rbs": 1.1661470023572379e-12,
+                "rb": 7.884864597185389e-11
+            }
         },
         {
             "task": "pattern recognition",
             "measure": "Overall accuracy (%)",
-            "placebo vs rbs": 0.0,
-            "placebo vs rb": 3.08e-08,
-            "rbs vs rb": 0.0
+            "t_stats": {
+                "placebo": -0.6005200659726501,
+                "rbs": -25.311394008759503,
+                "rb": 9.40287998036123
+            },
+            "p_values": {
+                "placebo": 0.5540316470718529,
+                "rbs": 2.69674204164044e-18,
+                "rb": 2.4110484145502445e-09
+            }
         }
     ],
     "speed of retrival index": [
         {
             "task": "numeric working memory",
             "measure": "Speed of correct responses (ms)",
-            "placebo vs rbs": 0.4957938691,
-            "placebo vs rb": 2.343e-07,
-            "rbs vs rb": 2.4169e-06
+            "t_stats": {
+                "placebo": -5.447665187949788,
+                "rbs": -6.415330278717847,
+                "rb": -14.388341323750007
+            },
+            "p_values": {
+                "placebo": 1.5472567389911286e-05,
+                "rbs": 1.5139401686768202e-06,
+                "rb": 5.454982499160375e-13
+            }
         },
         {
             "task": "spatial working memory",
             "measure": "Speed of correct responses (ms)",
-            "placebo vs rbs": 0.005470744,
-            "placebo vs rb": 0.5354464478,
-            "rbs vs rb": 0.0275484743
+            "t_stats": {
+                "placebo": -10.942246150243102,
+                "rbs": -15.269082046254265,
+                "rb": -11.701159634590145
+            },
+            "p_values": {
+                "placebo": 1.3616963008324682e-10,
+                "rbs": 1.5753367653572984e-13,
+                "rb": 3.64987880957479e-11
+            }
         },
         {
             "task": "word recognition",
             "measure": "Speed of correct responses (ms)",
-            "placebo vs rbs": 0.0010369307,
-            "placebo vs rb": 1e-10,
-            "rbs vs rb": 9.033e-06
+            "t_stats": {
+                "placebo": 7.790738209685384,
+                "rbs": 2.6564888759761227,
+                "rb": -4.796203692162866
+            },
+            "p_values": {
+                "placebo": 6.738304982197641e-08,
+                "rbs": 0.014101092280382536,
+                "rb": 7.73782062858692e-05
+            }
         },
         {
             "task": "pattern recognition",
             "measure": "Speed of correct responses (ms)",
-            "placebo vs rbs": 0.1129139599,
-            "placebo vs rb": 0.0,
-            "rbs vs rb": 0.0
+            "t_stats": {
+                "placebo": 3.1384087329409462,
+                "rbs": 0.777615791359739,
+                "rb": -18.747275826655507
+            },
+            "p_values": {
+                "placebo": 0.004607788696056091,
+                "rbs": 0.44472116283574414,
+                "rb": 1.9710362658594644e-15
+            }
         }
     ]
 }
