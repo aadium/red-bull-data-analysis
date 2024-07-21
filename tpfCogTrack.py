@@ -2,7 +2,6 @@ import numpy as np
 import scipy.stats as stats
 import pandas as pd
 
-
 # data = {
 #     'alert': {
 #         'placebo': {'mean': 10, 'se': 3.22},
