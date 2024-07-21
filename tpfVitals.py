@@ -52,7 +52,7 @@ def calculate_cohens_d(mean1, mean2, se1, se2, n1, n2):
     return d_value
 
 
-# Calculate t, p, and d values for 'alert' item
+# Calculate t, p, and d values for 'hr' item
 t_hr_placebo, p_hr_placebo = calculate_t(mean_placebo_hr, 0, se_placebo_hr, 0, n_placebo,
                                          n_placebo)
 d_hr_placebo = calculate_cohens_d(mean_placebo_hr, 0, se_placebo_hr, 0, n_placebo, n_placebo)
@@ -63,7 +63,7 @@ d_hr_rbsf = calculate_cohens_d(mean_rbsf_hr, 0, se_rbsf_hr, 0, n_rbsf, n_rbsf)
 t_hr_rb, p_hr_rb = calculate_t(mean_rb_hr, 0, se_rb_hr, 0, n_rb, n_rb)
 d_hr_rb = calculate_cohens_d(mean_rb_hr, 0, se_rb_hr, 0, n_rb, n_rb)
 
-# Calculate t, p, and d values for 'tired' item
+# Calculate t, p, and d values for 'sbp' item
 t_sbp_placebo, p_sbp_placebo = calculate_t(mean_placebo_sbp, 0, se_placebo_sbp, 0, n_placebo,
                                            n_placebo)
 d_sbp_placebo = calculate_cohens_d(mean_placebo_sbp, 0, se_placebo_sbp, 0, n_placebo, n_placebo)
@@ -74,7 +74,7 @@ d_sbp_rbsf = calculate_cohens_d(mean_rbsf_sbp, 0, se_rbsf_sbp, 0, n_rbsf, n_rbsf
 t_sbp_rb, p_sbp_rb = calculate_t(mean_rb_sbp, 0, se_rb_sbp, 0, n_rb, n_rb)
 d_sbp_rb = calculate_cohens_d(mean_rb_sbp, 0, se_rb_sbp, 0, n_rb, n_rb)
 
-# Calculate t, p, and d values for 'jittery' item
+# Calculate t, p, and d values for 'dbp' item
 t_dbp_placebo, p_dbp_placebo = calculate_t(mean_placebo_dbp, 0, se_placebo_dbp, 0, n_placebo,
                                            n_placebo)
 d_dbp_placebo = calculate_cohens_d(mean_placebo_dbp, 0, se_placebo_dbp, 0, n_placebo, n_placebo)
