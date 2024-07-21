@@ -97,7 +97,7 @@ def draw_bar_chart_means(data):
     for factor in unique_factors:
         factor_df = means_df[means_df['factor'] == factor]
         plt.figure(figsize=(12, 6))
-        sns.barplot(x='drink', y='mean', data=factor_df, ci=None)
+        sns.barplot(x='drink', y='score', data=factor_df, errorbar=None)
         plt.title(f'Bar Chart of Means for Factor {factor}')
         plt.savefig(f'means_chart_factor_{factor}.png')
         plt.show()
