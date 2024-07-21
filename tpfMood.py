@@ -40,8 +40,14 @@ def calculate_t(mean1, mean2, se1, se2, n1, n2):
 
 # Function to calculate Cohen's d
 def calculate_cohens_d(mean1, mean2, se1, se2, n1, n2):
-    pooled_sd = np.sqrt(
-        ((n1 - 1) * (se1 * np.sqrt(n1)) ** 2 + (n2 - 1) * (se2 * np.sqrt(n2)) ** 2) / (n1 + n2 - 2))
+    # Convert standard errors to standard deviations
+    sd1 = se1 * np.sqrt(n1)
+    sd2 = se2 * np.sqrt(n2)
+
+    # Calculate pooled standard deviation
+    pooled_sd = np.sqrt(((n1 - 1) * sd1**2 + (n2 - 1) * sd2**2) / (n1 + n2 - 2))
+
+    # Calculate Cohen's d
     d_value = (mean1 - mean2) / pooled_sd
     return d_value
 

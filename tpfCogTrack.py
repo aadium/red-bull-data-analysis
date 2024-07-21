@@ -42,7 +42,7 @@ def filter_and_format_data(data, factor_score):
 
 # Load data
 file_path = './data.csv'  # Update path if needed
-data = filter_and_format_data(load_data(file_path), factor_score='memory capacity index')
+data = filter_and_format_data(load_data(file_path), factor_score='attentional intensity index')
 
 # Sample sizes
 n_placebo = 24
@@ -61,14 +61,27 @@ def calculate_t(mean1, mean2, se1, se2, n1, n2):
 
 # Function to calculate Cohen's d
 def calculate_cohens_d(mean1, mean2, se1, se2, n1, n2):
-    pooled_sd = np.sqrt(
-        ((n1 - 1) * (se1 * np.sqrt(n1)) ** 2 + (n2 - 1) * (se2 * np.sqrt(n2)) ** 2) / (n1 + n2 - 2))
+    # Convert standard errors to standard deviations
+    sd1 = se1 * np.sqrt(n1)
+    sd2 = se2 * np.sqrt(n2)
+
+    # Calculate pooled standard deviation
+    pooled_sd = np.sqrt(((n1 - 1) * sd1**2 + (n2 - 1) * sd2**2) / (n1 + n2 - 2))
+
+    # Calculate Cohen's d
     d_value = (mean1 - mean2) / pooled_sd
     return d_value
 
 
 # Function to calculate and print t, p, and d values for all conditions and drinks
 def calculate_statistics(data, n_placebo, n_rbsf, n_rb):
+    # Initialize dictionaries to store aggregated values
+    aggregate_values = {
+        'placebo': {'t': [], 'p': [], 'd': []},
+        'rbsf': {'t': [], 'p': [], 'd': []},
+        'rb': {'t': [], 'p': [], 'd': []}
+    }
+
     for condition, drinks in data.items():
         for drink, values in drinks.items():
             mean = values['mean']
@@ -82,8 +95,20 @@ def calculate_statistics(data, n_placebo, n_rbsf, n_rb):
             elif drink == 'rb':
                 t_value, p_value = calculate_t(mean, 0, se, 0, n_rb, n_rb)
                 d_value = calculate_cohens_d(mean, 0, se, 0, n_rb, n_rb)
+
+            # Store the values in the aggregate dictionary
+            aggregate_values[drink]['t'].append(t_value)
+            aggregate_values[drink]['p'].append(p_value)
+            aggregate_values[drink]['d'].append(d_value)
+
             print(f"{condition.capitalize()} ({drink.capitalize()}): t={t_value}, p={p_value}, d={d_value}")
 
+    # Calculate and print the aggregated results
+    for drink, values in aggregate_values.items():
+        mean_t = np.mean(values['t'])
+        mean_p = np.mean(values['p'])
+        mean_d = np.mean(values['d'])
+        print(f"Aggregate ({drink.capitalize()}): t={mean_t}, p={mean_p}, d={mean_d}")
 
 # Calculate and print statistics
 calculate_statistics(data, n_placebo, n_rbsf, n_rb)
